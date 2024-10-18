@@ -1,101 +1,158 @@
-import Image from "next/image";
+// pages/index.tsx
+"use client";
 
-export default function Home() {
+import {useEffect, useState} from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import ProjectCard from './components/ProjectCard';
+import ExperienceCard from './components/ExperienceCard';
+
+const projects = [
+  {
+    title: 'Workplace Stars',
+    description: 'A platform connecting professionals for networking and job opportunities.',
+    link: 'https://workplacestars.com',
+  },
+  {
+    title: 'Smart Insight',
+    description: 'An AI-driven analytics platform for businesses.',
+    link: 'https://smartinsight.ai',
+  },
+  // Add more projects as needed
+];
+
+const experiences = [
+  {
+    position: 'Backend Engineer',
+    company: 'AFEX, Abuja',
+    duration: 'November 2023 - Present',
+    achievements: [
+      'Enhanced an existing production system to optimize performance and user experience.',
+      'Facilitated workshops to identify user pain points and propose actionable solutions.',
+      'Analyzed user feedback to bridge knowledge gaps in product functionalities.',
+      'Wrote comprehensive tests for the project to improve application stability.',
+      'Built high-quality reusable code, ensuring maintainability.',
+      'Continuously learned new technologies while applying current best practices.',
+      'Utilized Python (Django) and Node.js predominantly in projects.',
+    ],
+  },
+  {
+    position: 'Principal Fullstack Engineer',
+    company: 'IHealth and Wellness Foundation, New York',
+    duration: 'August 2023 - February 2024',
+    achievements: [
+      'Led the design and implementation of scalable server-side software, improving system efficiency.',
+      'Pioneered the development of robust architectures to support high-traffic applications.',
+      'Implemented agile methodologies to deliver new features rapidly while maintaining quality.',
+      'Orchestrated the setup of CI/CD pipelines integrated with AWS and GCP.',
+      'Delivered and maintained new features and functionalities for clients.',
+    ],
+  },
+  {
+    position: 'Backend Engineer',
+    company: 'Startup (Serv), California',
+    duration: 'July 2023 - August 2024',
+    achievements: [
+      'Provided assistance in constructing the backend of a freelance platform from the ground up.',
+      'Took charge of developing the entire backend infrastructure and project architecture.',
+    ],
+  },
+  {
+    position: 'Backend Intern',
+    company: 'CloudWare Technologies, Ibadan',
+    duration: 'December 2021 - March 2022',
+    achievements: [
+      'Made significant contributions to multiple client websites by introducing new features and rectifying bugs.',
+      'Employed technologies like PHP, Laravel, and MySQL to deliver robust and efficient solutions.',
+      'Collaborated closely with both the development team and clients to ensure comprehensive project delivery.',
+      'Maintained and enhanced client websites adhering to the highest industry standards.',
+    ],
+  },
+  {
+    position: 'Programming Instructor',
+    company: 'IQ Academy, Ibadan',
+    duration: 'February 2021 - August 2021',
+    achievements: [
+      'Delivered lessons to students aged 4 to 12 on programming and web development.',
+      'Developed engaging teaching approaches tailored to introduce programming fundamentals.',
+      'Guided students to grasp and implement basic website coding using HTML and CSS effectively.',
+    ],
+  },
+  {
+    position: 'Javascript Instructor',
+    company: 'MTech Innovation Hub, Ibadan',
+    duration: 'September 2020 - February 2023',
+    achievements: [
+      'Delivered comprehensive training to frontend and backend developers in JavaScript.',
+      'Developed an engaging and dynamic teaching style to motivate students.',
+      'Continuously sought to improve the learning experience through feedback and evaluations.',
+    ],
+  },
+  {
+    position: 'Freelance Software Engineer',
+    company: 'Multiple Clients',
+    duration: 'August 2020',
+    achievements: [
+      'Designed and developed scalable server-side software & microservices using web development technologies.',
+      'Worked closely with clients, engineers, and designers to establish problem specifications and system designs.',
+      'Set up CI/CD pipelines integrated with cloud systems (AWS & GCP) for efficient deployment.',
+    ],
+  },
+];
+
+
+const Home = () => {
+  // const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Effect to load the theme from local storage on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('isDarkTheme') === 'true';
+    setDarkMode(savedTheme);
+  }, []);
+
+  // Effect to save the theme to local storage on change
+  useEffect(() => {
+    localStorage.setItem('isDarkTheme', darkMode.toString());
+  }, [darkMode]);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      <div className={`${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+        <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+        <main className="container mx-auto p-4">
+          <section id="about" className="mb-8">
+            <h2 className="text-2xl font-bold">About Me</h2>
+            <p className="mt-2">
+              I am a passionate software engineer with over 4 years of experience in developing robust web applications and driving user engagement. My expertise spans across backend development, architectural design, and agile methodologies. I thrive in collaborative environments and am dedicated to delivering innovative solutions that enhance user experience.
+            </p>
+          </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <section id="projects" className="mb-8">
+            <h2 className="text-2xl font-bold">Some Frontend Projects</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+              {projects.map((project, index) => (
+                  <ProjectCard key={index} {...project} darkMode={darkMode} />
+              ))}
+            </div>
+          </section>
+
+          <section id="experience" className="mb-8">
+            <h2 className="text-2xl font-bold">Experience</h2>
+            <div className="mt-4">
+              {experiences.map((exp, index) => (
+                  <ExperienceCard key={index} {...exp} darkMode={darkMode} />
+              ))}
+            </div>
+          </section>
+
+          <section id="contact" className="mb-8">
+            <h2 className="text-2xl font-bold">Contact</h2>
+            <p className="mt-2">Feel free to reach out to me via email: <a href="mailto:abdulbasitdamilola6@gmail.com" className="text-blue-600 hover:underline">abdulbasitdamilola6@gmail.com</a></p>
+          </section>
+        </main>
+        <Footer />
+      </div>
   );
-}
+};
+
+export default Home;
